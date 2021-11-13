@@ -22,12 +22,7 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         cache: maven
-    - name: Cache Maven packages
-      uses: actions/cache@v2
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
+
     - name: Run tests with Maven
       run: mvn -B test --file stackCalculator/pom.xml --batch-mode --fail-at-end
       
