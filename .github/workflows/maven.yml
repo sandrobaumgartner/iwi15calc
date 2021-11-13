@@ -29,7 +29,6 @@ jobs:
     - name: Publish Test Report
       uses: scacap/action-surefire-report@v1
       with:
-        fail_on_test_failures: true
         fail_if_no_tests: true
 
     - name: Build with Maven
