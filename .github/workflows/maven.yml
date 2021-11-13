@@ -36,6 +36,8 @@ jobs:
       # uses: mikepenz/action-junit-report@0972ee4b9952b671d6acc87c228fd7e85fa83e06
       uses: mikepenz/action-junit-report@v2.7.0
       with:
+        # path to surefire report
+        report_paths: '**/surefire-reports/TEST-*.xml'
         # Fail the build in case a test failure occurred.
         fail_on_failure: true # optional, default is false
         # Fail if no test are found.
