@@ -62,7 +62,30 @@ public class CalculatorTest {
 
 		assertEquals(1, result, 0);
 	}
-	
+
+	@Test
+	public void testSimpleModOperation2() throws Exception {
+		Calculator calc = new CalculatorImpl();
+		calc.push(26);
+		calc.push(3);
+		double result = calc.perform(Operation.mod);
+
+		assertEquals(2, result, 0);
+	}
+
+	@Test
+	public void testSimpleModOperationNegative() throws Exception {
+		try {
+			Calculator calc = new CalculatorImpl();
+			calc.push(26);
+			calc.push(0);
+			calc.perform(Operation.mod);
+
+			fail("Exception expected");
+		} catch (CalculatorException e) {
+			assertEquals("Modulo division by zero", e.getMessage());
+		}
+	}
 	
 
 	//
