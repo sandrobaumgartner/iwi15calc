@@ -53,7 +53,15 @@ public class CalculatorTest {
 
 	}
 	
-	
+	@Test
+	public void testSimpleModOperation() throws Exception {
+		Calculator calc = new CalculatorImpl();
+		calc.push(16);
+		calc.push(3);
+		double result = calc.perform(Operation.mod);
+
+		assertEquals(1, result, 0);
+	}
 	
 	
 
