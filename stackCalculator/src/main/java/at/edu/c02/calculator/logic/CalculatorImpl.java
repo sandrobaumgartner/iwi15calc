@@ -14,7 +14,11 @@ public class CalculatorImpl implements Calculator {
 	public double perform(Operation op) throws CalculatorException {
 
 		double b = pop();
-		double a = pop();
+		double a = 0;
+
+		if (!(op.equals(Operation.sin) || op.equals(Operation.cos))) {
+			a = pop();
+		}
 
 		switch (op) {
 		case add:
@@ -34,13 +38,11 @@ public class CalculatorImpl implements Calculator {
 			}
 			return a % b;
 		case sin:
-			b *= 180/Math.PI;
+			b *= Math.PI/180;
 			return Math.sin(b);
-
 		case cos:
-			b *= 180/Math.PI;
+			b *= Math.PI/180;
 			return Math.cos(b);
-
 		}
 		return 0;
 	}

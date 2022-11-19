@@ -42,7 +42,7 @@ public class EndToEndTest {
         Parser parser = new Parser(calc);
         double result = parser.parse(new File("src/test/resources/test07.xml"));
 
-        assertEquals(1, result, 0);
+        assertEquals(1, result, 0.01);
     }
 
     @Test
@@ -52,6 +52,6 @@ public class EndToEndTest {
         Parser parser = new Parser(calc);
         double result = parser.parse(new File("src/test/resources/test08.xml"));
 
-        assertEquals(0, result, 0);
+        assertEquals(0, result, 0.01);
     }
 }
