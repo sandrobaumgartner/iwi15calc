@@ -88,6 +88,4 @@ public class EndToEndTest {
             assertEquals("Scalar size cannot be negative", e.getMessage());
         }
     }
-
-
 }

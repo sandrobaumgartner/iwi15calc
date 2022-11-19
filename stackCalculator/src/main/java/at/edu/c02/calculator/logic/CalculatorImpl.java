@@ -1,6 +1,7 @@
 package at.edu.c02.calculator.logic;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Stack;
 
 import at.edu.c02.calculator.Calculator;
@@ -61,7 +62,9 @@ public class CalculatorImpl implements Calculator {
 				numbers.add(pop());
 			}
 		} catch (CalculatorException e) {
+			Collections.reverse(numbers);
 			int size = numbers.get(numbers.size() - 1).intValue();
+			numbers.remove(numbers.size() - 1);
 
 			if (size < 1) {
 				throw new CalculatorException("Scalar size cannot be negative");
@@ -76,7 +79,7 @@ public class CalculatorImpl implements Calculator {
 			}
 
 			double result = 0;
-			for (int i = 0; i < numbers.size(); i++) {
+			for (int i = 0; i < vector1.size(); i++) {
 				result += vector1.get(i) * vector2.get(i);
 			}
 
