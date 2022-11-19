@@ -1,5 +1,6 @@
 package at.edu.c02.calculator.logic;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 import at.edu.c02.calculator.Calculator;
@@ -12,6 +13,9 @@ public class CalculatorImpl implements Calculator {
 
 	@Override
 	public double perform(Operation op) throws CalculatorException {
+		if(op.equals(Operation.dotproduct)) {
+			return this.performDotProduct();
+		}
 
 		double b = pop();
 		double a = 0;
@@ -45,6 +49,39 @@ public class CalculatorImpl implements Calculator {
 			return Math.cos(b);
 		}
 		return 0;
+	}
+
+	public double performDotProduct() throws CalculatorException{
+		ArrayList<Double> numbers = new ArrayList<>();
+		ArrayList<Double> vector1 = new ArrayList<>();
+		ArrayList<Double> vector2 = new ArrayList<>();
+
+		try {
+			while(true) {
+				numbers.add(pop());
+			}
+		} catch (CalculatorException e) {
+			int size = numbers.get(numbers.size() - 1).intValue();
+
+			if (size < 1) {
+				throw new CalculatorException("Scalar size cannot be negative");
+			}
+
+			for (int i = 0; i < size; i++) {
+				vector1.add(numbers.get(i));
+			}
+
+			for (int i = size; i < numbers.size(); i++) {
+				vector2.add(numbers.get(i));
+			}
+
+			double result = 0;
+			for (int i = 0; i < numbers.size(); i++) {
+				result += vector1.get(i) * vector2.get(i);
+			}
+
+			return result;
+		}
 	}
 
 	@Override
