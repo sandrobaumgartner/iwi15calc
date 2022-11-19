@@ -33,6 +33,14 @@ public class CalculatorImpl implements Calculator {
 				throw new CalculatorException("Modulo division by zero");
 			}
 			return a % b;
+		case sin:
+			b *= 180/Math.PI;
+			return Math.sin(b);
+
+		case cos:
+			b *= 180/Math.PI;
+			return Math.cos(b);
+
 		}
 		return 0;
 	}
