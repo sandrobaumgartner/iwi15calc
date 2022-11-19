@@ -34,4 +34,24 @@ public class EndToEndTest {
 
         assertEquals(20, result, 0);
     }
+
+    @Test
+    public void testSinusOperation() throws Exception {
+        Calculator calc = new CalculatorImpl();
+
+        Parser parser = new Parser(calc);
+        double result = parser.parse(new File("src/test/resources/test07.xml"));
+
+        assertEquals(1, result, 0);
+    }
+
+    @Test
+    public void testCosinusOperation() throws Exception {
+        Calculator calc = new CalculatorImpl();
+
+        Parser parser = new Parser(calc);
+        double result = parser.parse(new File("src/test/resources/test08.xml"));
+
+        assertEquals(0, result, 0);
+    }
 }
