@@ -2,15 +2,23 @@ package at.edu.c02.calculator.logic;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Stack;
 
 import at.edu.c02.calculator.Calculator;
 import at.edu.c02.calculator.CalculatorException;
+import at.edu.c02.calculator.Store;
+import at.edu.c02.calculator.StoreException;
 
 
 public class CalculatorImpl implements Calculator {
 
 	private Stack<Double> stack_ = new Stack<Double>();
+	private Store store;
+
+	public CalculatorImpl() {
+		this.store = Store.getInstance();
+	}
 
 	@Override
 	public double perform(Operation op) throws CalculatorException {
@@ -84,6 +92,29 @@ public class CalculatorImpl implements Calculator {
 			}
 
 			return result;
+		}
+	}
+
+	public void storeResult(double result) {
+		this.store.setSingleStore(result);
+	}
+
+	public void storeResult(String name, double value) {
+		HashMap<String, Double> bigStore = this.store.getBigStore();
+		bigStore.put(name, value);
+	}
+
+	public double loadResult() {
+		double result = this.store.getSingleStore();
+		this.store.setSingleStore(null);
+		return result;
+	}
+
+	public double loadResult(String name) throws StoreException {
+		try {
+			return this.store.getBigStore().get(name);
+		} catch (NullPointerException npe) {
+			throw new StoreException("Couldn't load value");
 		}
 	}
 

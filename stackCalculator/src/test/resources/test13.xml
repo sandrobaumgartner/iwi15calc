@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<calculation>
+    <push value="1"/>
+    <push value="2"/>
+    <operation value="+"/>
+    <store value="A"/>
+    <push value="Result"/>
+    <push value="6"/>
+    <operation value="+"/>
+    <push value="Result"/>
+    <load value="A"/>
+    <push value="Result"/>
+    <operation value="*"/>
+    <store value="B"/>
+    <push value="37"/>
+    <load value="B"/>
+    <push value="Result"/>
+    <operation value="-"/>
+    <load value="A"/>
+    <push value="Result"/>
+    <load value="B"/>
+    <push value="Result"/>
+    <operation value="+"/>
+</calculation>

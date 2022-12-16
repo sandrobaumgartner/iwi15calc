@@ -11,10 +11,12 @@ import javax.xml.stream.events.*;
 import at.edu.c02.calculator.Calculator;
 import at.edu.c02.calculator.CalculatorException;
 import at.edu.c02.calculator.Calculator.Operation;
+import at.edu.c02.calculator.StoreException;
 
 public class Parser {
 
 	private Calculator calc_;
+	private double lastResult;
 
 	public Parser(Calculator cal) {
 		if (cal == null)
@@ -23,7 +25,7 @@ public class Parser {
 	}
 
 	public double parse(File calculation) throws FileNotFoundException,
-			XMLStreamException, CalculatorException {
+			XMLStreamException, CalculatorException, StoreException {
 
 		double result = 0;
 		XMLEventReader r = createXmlEventReader(calculation);
@@ -45,9 +47,21 @@ public class Parser {
 			} else if ("operation".equals(e.asStartElement().getName()
 					.getLocalPart())) {
 				result = calc_.perform(readOperation(value));
+				this.lastResult = result;
+			} else if("store".equals(e.asStartElement().getName()
+					.getLocalPart()) && value.equals("")){
+				calc_.storeResult(this.lastResult);
+			} else if("load".equals(e.asStartElement().getName()
+					.getLocalPart()) && value.equals("")) {
+				result = calc_.loadResult();
+			} else if("store".equals(e.asStartElement().getName().getLocalPart()) && !value.equals("")) {
+				calc_.storeResult(value, this.lastResult);
+			} else if("load".equals(e.asStartElement().getName().getLocalPart()) && !value.equals("")) {
+				result = calc_.loadResult(value);
 			}
 		}
 
+		this.lastResult = result;
 		return result;
 	}
 
@@ -86,6 +100,10 @@ public class Parser {
 			return Operation.cos;
 		else if ("dotproduct".equals(value))
 			return Operation.dotproduct;
+		else if("store".equals(value))
+			return Operation.store;
+		else if("load".equals(value))
+			return Operation.load;
 
 		throw new CalculatorException("Unsupported Operation!");
 	}
