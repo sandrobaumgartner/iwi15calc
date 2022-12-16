@@ -1,19 +1,15 @@
 package at.edu.c02.calculator.E2E;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-
+import at.edu.c02.calculator.Calculator;
 import at.edu.c02.calculator.CalculatorException;
 import at.edu.c02.calculator.logic.CalculatorImpl;
+import at.edu.c02.calculator.parser.Parser;
 import org.junit.Test;
+
+import java.io.File;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static org.mockito.Mockito.*;
-
-import at.edu.c02.calculator.Calculator;
-import at.edu.c02.calculator.Calculator.Operation;
-import at.edu.c02.calculator.parser.Parser;
 
 public class EndToEndTest {
 
@@ -86,6 +82,40 @@ public class EndToEndTest {
             fail("Exception expected");
         } catch (CalculatorException e) {
             assertEquals("Scalar size cannot be negative", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testStoreAndLoad() throws Exception {
+        Calculator calc = new CalculatorImpl();
+
+        Parser parser = new Parser(calc);
+        double result = parser.parse(new File("src/test/resources/test12.xml"));
+
+        assertEquals(10, result, 0.01);
+    }
+
+    @Test
+    public void testStoreAndLoad2() throws Exception {
+        Calculator calc = new CalculatorImpl();
+
+        Parser parser = new Parser(calc);
+        double result = parser.parse(new File("src/test/resources/test13.xml"));
+
+        assertEquals(30, result, 0.01);
+    }
+
+    @Test
+    public void testStoreEmpty() throws Exception {
+        try {
+            Calculator calc = new CalculatorImpl();
+
+            Parser parser = new Parser(calc);
+            parser.parse(new File("src/test/resources/test14.xml"));
+
+            fail("Exception expected!");
+        } catch (Exception e) {
+            assertEquals("Couldn't load value", e.getMessage());
         }
     }
 }
